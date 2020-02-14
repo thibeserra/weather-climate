@@ -45,5 +45,8 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - Then, in SYSTEM IMAGE view, click on NEXT button:
   ![](app/src/readme/_10-next-button.png)
 
-  - The next step is configure the virtual-device. In AVD NAME, show the device name ou keep the default:
+  - The next step is configure the virtual-device. In AVD NAME, show the device name or keep the default:
   ![](app/src/readme/_11-virtual-device-config.png)
+
+  - On the same view, click on SHOW ADVANCED SETTINGS button and check the BOOT OPTION: Cold boot:
+  ![](app/src/readme/_12-show-adv-settings.png)
