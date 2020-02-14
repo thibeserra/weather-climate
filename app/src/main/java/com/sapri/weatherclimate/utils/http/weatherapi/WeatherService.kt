@@ -11,7 +11,7 @@ interface WeatherService {
     fun getCurrentWeatherData(@Query("lat") lat: String,
                               @Query("lon") lon: String,
                               @Query("cnt") cnt: String,
-                              @Query("units") units: String,
+                              @Query("units") units: String?,
                               @Query("lang") lang: String,
                               @Query("APPID") app_id: String): Call<WeatherApiResponse>
 

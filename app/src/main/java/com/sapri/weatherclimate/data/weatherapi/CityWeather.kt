@@ -5,8 +5,8 @@ data class CityWeather(
     val lon: Double,
     val city: String,
     val wheatherDescription: String,
-    val currentTemperature: String,
-    val minTemperature: String,
-    val maxTemperature: String,
+    val currentTemperature: String?,
+    val minTemperature: String?,
+    val maxTemperature: String?,
     val iconId: String
 )
