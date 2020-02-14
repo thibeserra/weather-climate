@@ -30,5 +30,8 @@ $ git clone https://github.com/thibeserra/weather-climate.git
  - After open AVD MANAGER'S view, click on button CREATE VIRTUAL DEVICE:
  ![](app/src/readme/_5-create-virtual-device.png)
 
- - Choose in menu CATEGORY, the PHONE option. After, choose Nexus 5X virtual device:
+ - Choose in menu CATEGORY, the PHONE option. After, choose Nexus 5X virtual device and click in NEXT button:
  ![](app/src/readme/_6-nexus_5x_virtual_device.png)
+
+ - In RECOMMENDED tab, download the image API Level 29, ABI x86, Target Android 10.0 (Google Play):
+  ![](app/src/readme/_7-view-system-image-download.png)
