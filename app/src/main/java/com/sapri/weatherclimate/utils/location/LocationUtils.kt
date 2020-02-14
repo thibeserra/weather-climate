@@ -9,9 +9,6 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
-import com.sapri.weatherclimate.adapter.CityWeatherAdapter
-import com.sapri.weatherclimate.data.weatherapi.WeatherApiResponse
-import retrofit2.Call
 
 
 class LocationUtils(ctx: Context, actv: AppCompatActivity) {
@@ -21,7 +18,7 @@ class LocationUtils(ctx: Context, actv: AppCompatActivity) {
     val permissionId = 44
     var latitude: String? = null
     var longitude: String? = null
-    var fusedLocationClient: FusedLocationProviderClient? = null
+    private var fusedLocationClient: FusedLocationProviderClient? = null
 
 
     fun isLocationEnabled() : Boolean {
@@ -56,7 +53,7 @@ class LocationUtils(ctx: Context, actv: AppCompatActivity) {
 
     fun newLocationRequest() {
 
-        var locationRequest: LocationRequest = LocationRequest()
+        val locationRequest = LocationRequest()
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
         locationRequest.fastestInterval = 0

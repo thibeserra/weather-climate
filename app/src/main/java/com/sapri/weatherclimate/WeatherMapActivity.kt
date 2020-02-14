@@ -8,7 +8,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.sapri.weatherclimate.data.weatherapi.LatitudeLongitude
 
 class WeatherMapActivity : AppCompatActivity(), OnMapReadyCallback {
 

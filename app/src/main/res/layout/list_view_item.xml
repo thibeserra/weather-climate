@@ -38,7 +38,6 @@
             android:id="@+id/txt_currenty_temperature"
             android:textSize="32sp"
             android:textStyle="bold"
-            android:gravity="right"
             android:padding="10dp" />
 
     </LinearLayout>
@@ -55,7 +54,6 @@
             android:id="@+id/txt_min_temperature"
             android:textColor="@android:color/holo_blue_light"
             android:textSize="20sp"
-            android:gravity="left"
             android:padding="20dp"/>
 
         <TextView
@@ -64,7 +62,6 @@
             android:id="@+id/txt_max_temperature"
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp"
-            android:gravity="left"
             android:padding="20dp" />
 
     </LinearLayout>

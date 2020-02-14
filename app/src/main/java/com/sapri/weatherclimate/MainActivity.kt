@@ -1,7 +1,6 @@
 package com.sapri.weatherclimate
 
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -34,7 +33,10 @@ class MainActivity : AppCompatActivity() {
     private var cityWeatherAdapter: CityWeatherAdapter? = null
     private var citiesLatLongList: ArrayList<String>? = null
     private val locationUtils: LocationUtils = LocationUtils(this, this)
-    private var weatherMetric: String = "metric"
+    private var weatherMetric = "metric"
+    private val weatherCnt = "50"
+    private val weatherAppId = "b50fbcbc9df2a587a22fb630435df38d"
+    private val weatherLanguage = "pt_br"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         getLastLocation(cityWeatherAdapter, weatherMetric)
 
-        list_view.setOnItemClickListener { adapterView: AdapterView<*>, view: View, position: Int, id: Long ->
+        list_view.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
 
             val item = cityWeatherAdapter?.getItem(position)
 
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var inflater: MenuInflater = menuInflater
+        val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.weather_menu, menu)
 
         return true
@@ -80,19 +82,20 @@ class MainActivity : AppCompatActivity() {
         call = callApi(
             locationUtils.latitude,
             locationUtils.longitude,
-            "50",
+            weatherCnt,
             weatherMetric,
-            "pt_br",
-            "b50fbcbc9df2a587a22fb630435df38d")
+            weatherLanguage,
+            this.weatherAppId
+        )
 
-        mountListView(call, cityWeatherAdapter, this)
+        mountListView(call, cityWeatherAdapter)
 
         return super.onOptionsItemSelected(item)
     }
 
     private fun getAllLatLng(weatherApiResponse: WeatherApiResponse?) {
 
-        citiesLatLongList = ArrayList<String>()
+        citiesLatLongList = ArrayList()
 
         weatherApiResponse?.list?.map { place ->
             citiesLatLongList?.add("${place.coord.lat},${place.coord.lon}")
@@ -109,8 +112,8 @@ class MainActivity : AppCompatActivity() {
         if (latitude != null && longitude != null) {
 
             call = callWeatherApi(
-                latitude!!,
-                longitude!!,
+                latitude,
+                longitude,
                 cnt,
                 units,
                 lang,
@@ -123,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         return null
     }
 
-    private fun mountListView(call: Call<WeatherApiResponse>?, cityWeatherAdapter: CityWeatherAdapter?, context: Context) {
+    private fun mountListView(call: Call<WeatherApiResponse>?, cityWeatherAdapter: CityWeatherAdapter?) {
 
         cityWeatherAdapter?.clear()
 
@@ -176,11 +179,11 @@ class MainActivity : AppCompatActivity() {
             CityWeather(place.coord.lat,
                 place.coord.lon,
                 place.name,
-                place.weather.get(0).description,
+                place.weather[0].description,
                 formatWeatherTemperature(place.main.temp),
                 "Min: ${formatWeatherTemperature(place.main.tempMin)}",
                 "Máx: ${formatWeatherTemperature(place.main.tempMax)}",
-                place.weather.get(0).icon)
+                place.weather[0].icon)
         }
 
     }
@@ -190,9 +193,9 @@ class MainActivity : AppCompatActivity() {
         var weatherTemperature: String? = null
 
         when(weatherMetric) {
-            "metric" -> weatherTemperature = "${temperature.roundToInt().toString()} ºC"
-            "imperial" -> weatherTemperature = "${temperature.roundToInt().toString()} ºF"
-            "kelvin" -> weatherTemperature = "${temperature.roundToInt().toString()} K"
+            "metric" -> weatherTemperature = "${temperature.roundToInt()} ºC"
+            "imperial" -> weatherTemperature = "${temperature.roundToInt()} ºF"
+            "kelvin" -> weatherTemperature = "${temperature.roundToInt()} K"
         }
 
         return weatherTemperature
@@ -213,12 +216,12 @@ class MainActivity : AppCompatActivity() {
                         call = callApi(
                             locationUtils.latitude,
                             locationUtils.longitude,
-                            "50",
+                            weatherCnt,
                             weatherMetric,
-                            "pt_br",
-                            "b50fbcbc9df2a587a22fb630435df38d")
+                            weatherLanguage,
+                            weatherAppId)
 
-                        mountListView(call, cityWeatherAdapter, this)
+                        mountListView(call, cityWeatherAdapter)
 
                     }
                 }
@@ -228,7 +231,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -237,7 +239,7 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if(requestCode == locationUtils.permissionId) {
-            if(grantResults.size > 0 && grantResults.get(0) == PackageManager.PERMISSION_GRANTED) {
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLastLocation(cityWeatherAdapter, weatherMetric)
             }
         }
