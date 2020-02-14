@@ -17,3 +17,6 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 2 - Open Android Studio IDE and import the cloned project:
 ![](app/src/readme/_1-open_android_studio.png)
 
+- Go to your repository folder and select the weather-climate project
+![](app/src/readme/_2-select_project_into_repository.png)
+
