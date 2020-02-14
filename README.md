@@ -60,7 +60,7 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - That's great! The device is created and initialized with sucess if you see it =)
   ![](app/src/readme/_15-nexus-5-virtual-dev-started.png)
 
-  - To initialize the app on emulator device, go to the toolbar on the top of IDE and select the apropriate device:
+  - To initialize the app on emulator device, go to the toolbar on the top of IDE and select the apropriate device and click on RUN icon:
   ![](app/src/readme/_16-start-app-by-nexus5.png)
 
 4 - Note: Because the app is using the device's current location information, it may happen that the emulator is unable to obtain this information, causing cities not to be displayed on the main screen.
