@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private var cityWeatherAdapter: CityWeatherAdapter? = null
     private var citiesLatLongList: ArrayList<String>? = null
     private val locationUtils: LocationUtils = LocationUtils(this, this)
-
+    private var weatherMetric: String = "metric"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         cityWeatherAdapter = CityWeatherAdapter(this)
 
-        getLastLocation(cityWeatherAdapter)
+        getLastLocation(cityWeatherAdapter, weatherMetric)
 
         list_view.setOnItemClickListener { adapterView: AdapterView<*>, view: View, position: Int, id: Long ->
 
@@ -70,14 +70,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var weatherMetric: String? = null
 
-        if(item.itemId == R.id.celsius) {
-            weatherMetric = "metric"
-        } else if(item.itemId == R.id.fahrenheit) {
-            weatherMetric = "imperial"
-        } else if(item.itemId == R.id.kelvin) {
-            weatherMetric = "kelvin"
+        when(item.itemId) {
+            R.id.celsius -> weatherMetric = "metric"
+            R.id.fahrenheit -> weatherMetric = "imperial"
+            R.id.kelvin -> weatherMetric = "kelvin"
         }
 
         call = callApi(
@@ -88,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             "pt_br",
             "b50fbcbc9df2a587a22fb630435df38d")
 
-        mountListView(call, cityWeatherAdapter, this, weatherMetric)
+        mountListView(call, cityWeatherAdapter, this)
 
         return super.onOptionsItemSelected(item)
     }
@@ -126,7 +123,7 @@ class MainActivity : AppCompatActivity() {
         return null
     }
 
-    private fun mountListView(call: Call<WeatherApiResponse>?, cityWeatherAdapter: CityWeatherAdapter?, context: Context, weatherMetric: String?) {
+    private fun mountListView(call: Call<WeatherApiResponse>?, cityWeatherAdapter: CityWeatherAdapter?, context: Context) {
 
         cityWeatherAdapter?.clear()
 
@@ -136,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 if(response.code() == 200) {
                     val responseBody: WeatherApiResponse? = response.body()
 
-                    cityWeatherAdapter?.addAll(map(responseBody!!, weatherMetric))
+                    cityWeatherAdapter?.addAll(map(responseBody!!))
                     list_view.adapter = cityWeatherAdapter
 
                     getAllLatLng(responseBody)
@@ -173,22 +170,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun map(weatherApiResponse : WeatherApiResponse, weatherMetric: String?) : List<CityWeather> {
+    private fun map(weatherApiResponse : WeatherApiResponse) : List<CityWeather> {
 
         return weatherApiResponse.list.map { place ->
             CityWeather(place.coord.lat,
                 place.coord.lon,
                 place.name,
                 place.weather.get(0).description,
-                formatWeatherTemperature(weatherMetric, place.main.temp),
-                formatWeatherTemperature(weatherMetric, place.main.tempMin),
-                formatWeatherTemperature(weatherMetric, place.main.tempMax),
+                formatWeatherTemperature(place.main.temp),
+                "Min: ${formatWeatherTemperature(place.main.tempMin)}",
+                "Máx: ${formatWeatherTemperature(place.main.tempMax)}",
                 place.weather.get(0).icon)
         }
 
     }
 
-    private fun formatWeatherTemperature(weatherMetric: String?, temperature: Double ) : String? {
+    private fun formatWeatherTemperature(temperature: Double) : String? {
 
         var weatherTemperature: String? = null
 
@@ -201,7 +198,7 @@ class MainActivity : AppCompatActivity() {
         return weatherTemperature
     }
 
-    private fun getLastLocation(cityWeatherAdapter: CityWeatherAdapter?) {
+    private fun getLastLocation(cityWeatherAdapter: CityWeatherAdapter?, weatherMetric: String?) {
         if (locationUtils.checkPermissions()) {
             if(locationUtils.isLocationEnabled()) {
                 mFusedLocationClient!!.lastLocation.addOnCompleteListener { task ->
@@ -217,11 +214,11 @@ class MainActivity : AppCompatActivity() {
                             locationUtils.latitude,
                             locationUtils.longitude,
                             "50",
-                            "metric",
+                            weatherMetric,
                             "pt_br",
                             "b50fbcbc9df2a587a22fb630435df38d")
 
-                        mountListView(call, cityWeatherAdapter, this, "metric")
+                        mountListView(call, cityWeatherAdapter, this)
 
                     }
                 }
@@ -241,7 +238,7 @@ class MainActivity : AppCompatActivity() {
 
         if(requestCode == locationUtils.permissionId) {
             if(grantResults.size > 0 && grantResults.get(0) == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation(cityWeatherAdapter)
+                getLastLocation(cityWeatherAdapter, weatherMetric)
             }
         }
     }

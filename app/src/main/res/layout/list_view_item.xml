@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_currenty_temperature"
-            android:textSize="46sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:gravity="right"
             android:padding="10dp" />
@@ -53,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_min_temperature"
-            android:textSize="36sp"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="20sp"
             android:gravity="left"
             android:padding="20dp"/>
 
@@ -61,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_max_temperature"
-            android:textSize="36sp"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="20sp"
             android:gravity="left"
             android:padding="20dp" />
 
