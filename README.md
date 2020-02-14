@@ -56,3 +56,6 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 
   - Then, click on LAUNCH THIS AVD IN THE EMULATOR icon, on colum Action:
   ![](app/src/readme/_14-start-nexus-5-virtual-dev.png)
+
+  - Thats great! The device is created and initialized with sucess if you see it =)
+  ![](app/src/readme/_15-nexus-5-virtual-dev-started.png)
