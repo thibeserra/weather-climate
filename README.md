@@ -63,7 +63,7 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - To initialize the app on emulator device, go to the toolbar on the top of IDE and select the apropriate device and click on RUN icon:
   ![](app/src/readme/_16-start-app-by-nexus5.png)
 
-  - The app start's with list of cities arround your current location device:
+  - The app start's with list of cities in your current location device:
   ![](app/src/readme/_17-weather-app-initialized.png)
 
 
