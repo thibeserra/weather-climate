@@ -35,3 +35,6 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 
  - In RECOMMENDED tab, download the image API Level 29, ABI x86, Target Android 10.0 (Google Play):
   ![](app/src/readme/_7-view-system-image-download.png)
+
+  - After, wait the process download. This can take a lng time, depending on the speed of your network
+  ![](app/src/readme/_8-download-device-image.png)
