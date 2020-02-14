@@ -7,7 +7,7 @@ App that show the weather's climate around fifity distance by device's current l
 - FRAMEWORK DEVELOPMENT: SDK v29 (API 29.0.2: Android 10.0 Q), SDK min. v15 (API 15: Android 4.0.3 IceCreamSandwich), Language: Kotlin v1.3.61
 - VIRTUAL DEVICE ANDROID STUDIO PHONE: Pixel size: 5.0, Resolution: 1080x1920px, Density: 420dpi, Startup orientation: portrait
 -
-## Import Project to Android Studio
+## Import and execute the Project in Android Studio
 1 - Clone the weather-climate project into your repository folder:
 
 ```sh
@@ -48,5 +48,9 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - The next step is configure the virtual-device. In AVD NAME, show the device name or keep the default:
   ![](app/src/readme/_11-virtual-device-config.png)
 
-  - On the same view, click on SHOW ADVANCED SETTINGS button and check the BOOT OPTION: Cold boot:
+  - On the same view, click on SHOW ADVANCED SETTINGS button and check the BOOT OPTION='Cold boot' and click in FINISH button:
   ![](app/src/readme/_12-show-adv-settings.png)
+
+  - At this moment, the virtual devid is created:
+  ![](app/src/readme/_13-virtual-device-created.png)
+
