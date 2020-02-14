@@ -85,5 +85,5 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - After performing the above procedures, restart the Android Studio IDE and select your physical device to initialize the app:
   ![](app/src/readme/_18-select-physical-device.png)
 
-  - That's it! weather-climate app initialized in your physical device if you se the bellow:
+  - That's it! weather-climate app initialized in your physical device if you se the bellow like this:
   ![](app/src/readme/_19-app-initialized-physical-device.jpg)
