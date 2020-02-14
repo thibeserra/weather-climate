@@ -17,7 +17,7 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 2 - Open Android Studio IDE and import the cloned project:
 ![](app/src/readme/_1-open_android_studio.png)
 
-- Go to your repository folder and select the weather-climate project
+- Go to your repository folder and choose the weather-climate project
 ![](app/src/readme/_2-select_project_into_repository.png)
 
 - IDE will download the dependencies project and build it. Await this steps:
@@ -29,3 +29,6 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 
  - After open AVD MANAGER'S view, click on button CREATE VIRTUAL DEVICE:
  ![](app/src/readme/_5-create-virtual-device.png)
+
+ - Choose in menu CATEGORY, the PHONE option. After, choose Nexus 5X virtual device:
+ ![](app/src/readme/_6-nexus_5x_virtual_device.png)
