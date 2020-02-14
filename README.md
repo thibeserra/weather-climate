@@ -1,4 +1,4 @@
-# text in red weather-climate
+# weather-climate
 App that show the weather's climate around fifity distance by device's current location
 
 ## Project Environment
@@ -20,5 +20,9 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 - Go to your repository folder and select the weather-climate project
 ![](app/src/readme/_2-select_project_into_repository.png)
 
-- IDE will download the dependencie's project and build it. Await this steps:
+- IDE will download the dependencies project and build it. Await this steps:
 ![](app/src/readme/_3-build_project_step.png)
+
+3 - Let's create a virtual device to start the project
+ - Click in AVD MANAGER icon on right top ide bartool:
+ ![](app/src/readme/_4-click_avd_manager_icon.png)
