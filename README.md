@@ -79,7 +79,8 @@ $ git clone https://github.com/thibeserra/weather-climate.git
     6 - Developer options
     7 - Enable the USB Debugging option
     8 - Connect the USB case between the device and your computer
-    9 - After plugging the USB cable, accept the permission requested by the device: Can the connected device access data on this phone?
+    9 - After plugging the USB cable, accept the permission requested by the device: Can the connected device
+    access data on this phone?
 
   - After performing the above procedures, restart the Android Studio IDE and select your physical device to initialize the app:
   ![](app/src/readme/_18-select-physical-device.png)
