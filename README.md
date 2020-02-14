@@ -20,3 +20,5 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 - Go to your repository folder and select the weather-climate project
 ![](app/src/readme/_2-select_project_into_repository.png)
 
+- IDE will download the dependencie's project and build it. Await this steps:
+![](app/src/readme/_3-build_project_step.png)
