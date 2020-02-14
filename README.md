@@ -39,5 +39,8 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - After, wait the process download. This can take a long time, depending on the speed of your network:
   ![](app/src/readme/_8-download-device-image.png)
 
-  - when the downlaod finish and unnzip the image, click on FINISH BUTTON:
+  - when the downlaod finish and unnzip the image, click on FINISH button:
   ![](app/src/readme/_9-finish-download-device-image.png)
+
+  - then, in SYSTEM IMAGE view, click on NEXT button:
+  ![](app/src/readme/_10-next-button.png)
