@@ -24,5 +24,8 @@ $ git clone https://github.com/thibeserra/weather-climate.git
 ![](app/src/readme/_3-build_project_step.png)
 
 3 - Let's create a virtual device to start the project
- - Click in AVD MANAGER icon on right top ide bartool:
+ - Click on AVD MANAGER icon in the right top IDE:
  ![](app/src/readme/_4-click_avd_manager_icon.png)
+
+ - After open AVD MANAGER'S view, click on button CREATE VIRTUAL DEVICE:
+ ![](app/src/readme/_5-create-virtual-device.png)
