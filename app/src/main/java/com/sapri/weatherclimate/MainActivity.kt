@@ -1,25 +1,21 @@
 package com.sapri.weatherclimate
 
-import android.Manifest
+
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
 import android.view.View
 import android.widget.AdapterView
-import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.LatLng
 import com.sapri.weatherclimate.adapter.CityWeatherAdapter
 import com.sapri.weatherclimate.data.weatherapi.CityWeather
-import com.sapri.weatherclimate.data.weatherapi.LatitudeLongitude
 import com.sapri.weatherclimate.data.weatherapi.WeatherApiResponse
 import com.sapri.weatherclimate.utils.http.HttpRequestClient
 import com.sapri.weatherclimate.utils.http.weatherapi.WeatherService
+import com.sapri.weatherclimate.utils.location.LocationUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,12 +26,11 @@ import kotlin.math.roundToInt
 class MainActivity : AppCompatActivity() {
 
     private val permissionId = 44
-    var latitude: String? = null
-    var longitude: String? = null
-    var mFusedLocationClient: FusedLocationProviderClient? = null
+    private var mFusedLocationClient: FusedLocationProviderClient? = null
     private var call: Call<WeatherApiResponse>? = null
-    var cityWeatherAdapter: CityWeatherAdapter? = null
-    var citiesLatLongList: ArrayList<String>? = null
+    private var cityWeatherAdapter: CityWeatherAdapter? = null
+    private var citiesLatLongList: ArrayList<String>? = null
+    private val locationUtils: LocationUtils = LocationUtils(this, this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +43,8 @@ class MainActivity : AppCompatActivity() {
         getLastLocation(cityWeatherAdapter)
 
         call = callApi(
-            latitude,
-            longitude,
+            locationUtils.latitude,
+            locationUtils.longitude,
             "50",
             "metric",
             "pt_br",
@@ -57,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         mountListView(call, cityWeatherAdapter, this)
 
-        // refatorar
         list_view.setOnItemClickListener { adapterView: AdapterView<*>, view: View, position: Int, id: Long ->
 
             val item = cityWeatherAdapter?.getItem(position)
@@ -65,13 +59,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, WeatherMapActivity::class.java)
             intent.putExtra("lat", item?.lat)
             intent.putExtra("lon", item?.lon)
-            intent.putExtra("city", item?.city)
             intent.putStringArrayListExtra("latLngList", citiesLatLongList)
 
             startActivity(intent)
         }
 
     }
+
 
     private fun getAllLatLng(weatherApiResponse: WeatherApiResponse?) {
 
@@ -166,20 +160,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getLastLocation(cityWeatherAdapter: CityWeatherAdapter?) {
-        if (checkPermissions()) {
-            if(isLocationEnabled()) {
+        if (locationUtils.checkPermissions()) {
+            if(locationUtils.isLocationEnabled()) {
                 mFusedLocationClient!!.lastLocation.addOnCompleteListener { task ->
                     val location: Location? = task.result
 
                     if(location == null) {
-                        requestNewLocationData()
+                        locationUtils.newLocationRequest()
                     } else {
-                        latitude = location.latitude.toString()
-                        longitude = location.longitude.toString()
+                        locationUtils.latitude = location.latitude.toString()
+                        locationUtils.longitude = location.longitude.toString()
 
                         call = callApi(
-                            latitude,
-                            longitude,
+                            locationUtils.latitude,
+                            locationUtils.longitude,
                             "50",
                             "metric",
                             "pt_br",
@@ -191,66 +185,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         } else {
-            requestPermissions()
+            locationUtils.requestPermissions()
         }
     }
 
-    private fun requestNewLocationData() {
-
-        var mLocationRequest: LocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 0
-        mLocationRequest.fastestInterval = 0
-        mLocationRequest.numUpdates = 1
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient!!.requestLocationUpdates(mLocationRequest,
-                                                    mLocationCallBack,
-                                                    Looper.myLooper())
-
-    }
-
-    private val mLocationCallBack = object : LocationCallback() {
-
-        override fun onLocationResult(locationResult: LocationResult?) {
-
-            val mLastLocation: Location? = locationResult!!.lastLocation
-
-            latitude = mLastLocation!!.latitude.toString()
-            longitude = mLastLocation.longitude.toString()
-
-        }
-
-    }
-
-    private fun checkPermissions(): Boolean {
-        if(ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(
-                    this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                return true
-
-        }
-
-        return false
-    }
-
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION), permissionId)
-    }
-
-    private fun isLocationEnabled() : Boolean {
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -259,9 +197,19 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if(requestCode == permissionId) {
+        if(requestCode == locationUtils.permissionId) {
             if(grantResults.size > 0 && grantResults.get(0) == PackageManager.PERMISSION_GRANTED) {
                 getLastLocation(cityWeatherAdapter)
+
+                call = callApi(
+                    locationUtils.latitude,
+                    locationUtils.longitude,
+                    "50",
+                    "metric",
+                    "pt_br",
+                    "b50fbcbc9df2a587a22fb630435df38d")
+
+                mountListView(call, cityWeatherAdapter, this)
             }
         }
     }

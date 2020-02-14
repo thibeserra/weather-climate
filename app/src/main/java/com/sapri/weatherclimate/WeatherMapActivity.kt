@@ -37,21 +37,15 @@ class WeatherMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val lat = intent.extras?.get("lat") as Double
         val lon = intent.extras?.get("lon") as Double
-        val city = intent.extras?.get("city") as String
         val latLngList = intent.extras?.getStringArrayList("latLngList") as? ArrayList<String>
 
         val coordinateCity = LatLng(lat, lon)
-//        mMap.addMarker(MarkerOptions().position(coordinateCity).title(city))
 
         latLngList?.map { latLng ->
             mMap.addMarker(MarkerOptions().position(LatLng(latLng.substringBefore(",").toDouble(), latLng.substringAfter(",").toDouble())))
         }
 
-//        mMap.addMarker(MarkerOptions().position(LatLng(-20.4, -47.27)).title(city))
-//        mMap.addMarker(MarkerOptions().position(LatLng(-20.46, -47.59)).title(city))
-
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinateCity, 10.00.toFloat() ))
-
 
     }
 }
