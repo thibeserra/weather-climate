@@ -51,6 +51,8 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - On the same view, click on SHOW ADVANCED SETTINGS button and check the BOOT OPTION='Cold boot' and click in FINISH button:
   ![](app/src/readme/_12-show-adv-settings.png)
 
-  - At this moment, the virtual devid is created:
+  - At this moment, the virtual device is created:
   ![](app/src/readme/_13-virtual-device-created.png)
 
+  - Then, click on LAUNCH THIS AVD IN THE EMULATOR icon, on colum Action:
+  ![](app/src/readme/_14-start-nexus-5-virtual-dev.png)
