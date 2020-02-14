@@ -42,5 +42,8 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   - when the downlaod finish and unnzip the image, click on FINISH button:
   ![](app/src/readme/_9-finish-download-device-image.png)
 
-  - then, in SYSTEM IMAGE view, click on NEXT button:
+  - Then, in SYSTEM IMAGE view, click on NEXT button:
   ![](app/src/readme/_10-next-button.png)
+
+  - The next step is configure the virtual-device. In AVD NAME, show the device name ou keep the default:
+  ![](app/src/readme/_11-virtual-device-config.png)
