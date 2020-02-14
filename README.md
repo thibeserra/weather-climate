@@ -86,4 +86,4 @@ $ git clone https://github.com/thibeserra/weather-climate.git
   ![](app/src/readme/_18-select-physical-device.png)
 
   - That's it! weather-climate app initialized in your physical device if you se the bellow:
-  ![](app/src/readme/_19-app-initialized-physical-device.png)
+  ![](app/src/readme/_19-app-initialized-physical-device.jpg)
