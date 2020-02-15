@@ -79,16 +79,7 @@ class MainActivity : AppCompatActivity() {
             R.id.kelvin -> weatherMetric = "kelvin"
         }
 
-        call = callApi(
-            locationUtils.latitude,
-            locationUtils.longitude,
-            weatherCnt,
-            weatherMetric,
-            weatherLanguage,
-            this.weatherAppId
-        )
-
-        mountListView(call, cityWeatherAdapter)
+        getLastLocation(cityWeatherAdapter, weatherMetric)
 
         return super.onOptionsItemSelected(item)
     }
